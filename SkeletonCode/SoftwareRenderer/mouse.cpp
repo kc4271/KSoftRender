@@ -8,7 +8,10 @@
 #include "globals.h"
 
 #include "Scene.h"
+#include "Rasterization.h"
 
+
+#include "Values.h"
 /* store the eye position */
 float eye_theta;			/* the theta angle of the eye (the longitude).  it is positive in a counterclockwise direction when looking down -z */
 float eye_phi;				/* the phi angle of the eye (the latitude).  i define 0 as the north pole. */
@@ -30,10 +33,7 @@ static int left_button = GLUT_UP, middle_button = GLUT_UP, right_button = GLUT_U
 
 #define FLOAT_EPSILON 0.0000001
 
-
 extern bool opengl_test;
-
-
 
 void computeUpSightAndRightVectors(void);
 
@@ -57,6 +57,9 @@ void reshape(int w, int h) {
 	gluPerspective(eye_fov,				/* field of view in degree */
 				   (double)w/(double)h, /* aspect ratio */
 					0.1, 700);
+
+	g_w = w;
+	g_h = h;
 
 	return;
 }
@@ -246,12 +249,59 @@ void computeUpSightAndRightVectors(void) {
 	return;
 }
 
+static void test_DrawLine(int x,int y)
+{
+	static int lastX = window_width / 2;
+	static int lastY = window_height / 2;
+	DrawLine(x,g_h - y,lastX,lastY);
+	lastX = x;
+	lastY = g_h - y;
+}
+
+static void test_DrawTriangle(int x,int y)
+{
+	static int state = 0;
+	static Vertex buffer[3];
+	static u08 color[3][3];
+
+	for(int i = 0;i < 3;i++)
+	{
+		g_color[i] = color[state][i] = rand() % 255;
+	}
+
+	if(state == 0)
+	{
+		buffer[0].set(x,g_h - y,0);
+		DrawLine(x,g_h - y,x,g_h - y + 1);
+		state = 1;
+	}
+	else if(state == 1)
+	{
+		buffer[1].set(x,g_h - y,0);
+		DrawLine(x,g_h - y,x,g_h - y + 1);
+		state = 2;
+	}
+	else if(state == 2)
+	{
+		buffer[2].set(x,g_h - y,0);
+		DrawLine(x,g_h - y,x,g_h - y + 1);
+		Triangle t(&buffer[0],&buffer[1],&buffer[2]);
+		for(int i = 0;i < 3;i++)
+			t.setColor(i,color[i][0],color[i][1],color[i][2]);
+		t.renderSoft_raster();
+		state = 0;
+	}
+
+}
+
 void mouseInput(int button, int state, int x, int y) {
-    switch(button) {
+   switch(button) {
 		case GLUT_LEFT_BUTTON:
 			left_button = state;
 			if (state == GLUT_DOWN) {
 				beginDrag(x, y);
+				test_DrawTriangle(x,y);
+				//glutPostRedisplay();
 			}
 			else {
 				dragView(x, y);

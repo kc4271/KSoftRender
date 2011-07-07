@@ -32,7 +32,6 @@ void FrameBuffer :: dumpColorBufferToFile(char *name) {
 
 	image.Create(width, height, 24);
 
-
 	/* now copy color buffer to the CImage bit array */
 	copyColorBuffer(&image);
 

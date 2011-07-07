@@ -10,8 +10,8 @@ typedef unsigned char u08;
 #define TWO_PI  (2.0f * MY_PI)
 
 #if 1
-#define window_width	1000
-#define window_height	1000
+#define window_width	1024
+#define window_height	768
 #endif
 
 #if 0

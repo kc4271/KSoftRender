@@ -29,9 +29,21 @@ class FrameBuffer {
 		};
 
 		/* get color ptr */
-		u08 *getColorPtr(int x, int y) {
+		inline u08 *getColorPtr(int x, int y) {
 			return (color_buffer + ((y * width + x)*3));
 		};
+
+		inline void setColor(int x,int y,u08 r = 255,u08 g = 255,u08 b = 255)
+		{
+			color_buffer[(y * width + x)*3] = r;
+			color_buffer[(y * width + x)*3 + 1] = g;
+			color_buffer[(y * width + x)*3 + 2] = b;
+		}
+
+		inline void clearBuffer()
+		{
+			memset(color_buffer,0,sizeof(u08) * width * height * 3);
+		}
 
 		void copyColorBuffer(CImage *image);
 		void dumpColorBufferToFile(char *name);

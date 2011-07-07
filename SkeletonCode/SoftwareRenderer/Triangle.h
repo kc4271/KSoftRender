@@ -20,6 +20,17 @@ class Triangle {
 		/* point to the texture that is bound, if any */
 		Texture *tex;
 
+		inline float f01(float x,float y){
+			return (v[0].y - v[1].y) * x + (v[1].x - v[0].x) * y + v[0].x * v[1].y - v[1].x * v[0].y;
+		}
+
+		inline float f12(float x,float y){
+			return (v[1].y - v[2].y) * x + (v[2].x - v[1].x) * y + v[1].x * v[2].y - v[2].x * v[1].y;
+		}
+		inline float f20(float x,float y){
+			return (v[2].y - v[0].y) * x + (v[0].x - v[2].x) * y + v[2].x * v[0].y - v[0].x * v[2].y;
+		}
+
 	public:
 		/* constructors */
 		Triangle() {
@@ -96,6 +107,8 @@ class Triangle {
 			v[2].print();
 			return;
 		};
+
+		void renderSoft_raster();
 };
 
 #endif		/* TRIANGLE_H */

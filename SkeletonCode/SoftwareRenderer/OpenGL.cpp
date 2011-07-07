@@ -12,7 +12,7 @@
 #include "Texture.h"
 #include "Scene.h"
 
-extern FrameBuffer fb;
+#include "Values.h"
 extern Scene scene;
 
 bool opengl_test = false;
@@ -47,14 +47,14 @@ void display(void) {
 	else {
 		/* draw the scene with software */
 		scene.renderSceneSoftware();
-		fb.dumpToScreen();
+		g_fb.dumpToScreen();
 	}
 
 	glFinish();
 
 	timer1.stopTimer();
 	time = timer1.getTime();
-	sprintf(name, "%s: %.4lf s, %.2lf fps", opengl_test ? "GL" : "soft", time, 1.0/time);
+	sprintf(name, "%s: %.4lf s, %.2lf fps", opengl_test ? "GL" : "Soft", time, 1.0/time);
 	glutSetWindowTitle(name);
 
 	checkGLErrors("Errors in display()!\n");
@@ -103,7 +103,7 @@ void keyboard(unsigned char key, int x, int y) {
 			moveRight();
 			redisplay();
 			break;
-		case 'z':
+		case 's':
 			moveBack();
 			redisplay();
 			break;

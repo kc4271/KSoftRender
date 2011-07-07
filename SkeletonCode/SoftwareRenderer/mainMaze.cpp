@@ -4,8 +4,6 @@
 #include "FrameBuffer.h"
 
 Scene scene;
-FrameBuffer fb(window_width, window_height);
-
 int main(int argc, char **argv) {
 	if (argc != 2) {
 		fprintf(stderr,"Usage: MazeViewer <file>\n");

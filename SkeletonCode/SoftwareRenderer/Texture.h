@@ -30,7 +30,7 @@ class Texture {
 		u08 *data;			/* contains the color data for the texture */
 
 		/* for opengl only */
-		GLuint	tex;		/* handle to opengl texture (only used by opengl */
+		GLuint	tex;		/* handle to opengl texture (only used by opengl) */
 		void copyTextureData(CImage *image); 
 
 		void getFloatColor(int u, int v, float *color) {

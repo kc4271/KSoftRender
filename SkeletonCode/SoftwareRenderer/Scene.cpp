@@ -1,6 +1,7 @@
 #include "Scene.h"
+#include "Rasterization.h"
 
-
+#include "Values.h"
 /* set the perspective projection matrix given the following values */
 void setPerspectiveProjection(float eye_fov, float aspect_ratio, float near, float far) {
 
@@ -16,5 +17,7 @@ void setModelviewMatrix(float *eye_pos, float eye_theta, float eye_phi) {
 void Scene :: renderSceneSoftware(void) {
 
 /* this is the function you will write */
+	
+	
 	return;
 }

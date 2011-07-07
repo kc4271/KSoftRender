@@ -5,7 +5,6 @@
 
 /* represents a vertex in homogenous coordinates */
 class Vertex {
-	private:
 	public:
 		float x, y, z, w;
 
