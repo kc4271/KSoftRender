@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "FrameBuffer.h"
 
-Scene scene;
 int main(int argc, char **argv) {
 	if (argc != 2) {
 		fprintf(stderr,"Usage: MazeViewer <file>\n");

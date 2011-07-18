@@ -45,6 +45,19 @@ class FrameBuffer {
 			memset(color_buffer,0,sizeof(u08) * width * height * 3);
 		}
 
+		inline void clearBuffer(u08 r,u08 g,u08 b)
+		{
+			for(int i = 0;i < height;i++)
+			{
+				for(int j = 0;j < width;j++)
+				{
+					color_buffer[(i * width + j) * 3] = r;
+					color_buffer[(i * width + j) * 3 + 1] = g;
+					color_buffer[(i * width + j) * 3 + 2] = b;
+				}
+			}
+		}
+
 		void copyColorBuffer(CImage *image);
 		void dumpColorBufferToFile(char *name);
 		void dumpToScreen(void);

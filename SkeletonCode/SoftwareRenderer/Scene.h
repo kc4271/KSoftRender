@@ -19,7 +19,7 @@ typedef struct TriangleList_t {
 
 /* implements the scene class */
 class Scene {
-	private:
+public:
 		/* the scene class is basically a linked list of triangles */
 		TriangleList *original_head;
 		TriangleList *original_tail;

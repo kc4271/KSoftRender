@@ -112,8 +112,6 @@ void computeModelViewMatrix(void) {
 }
 
 
-
-
 float drag_constant = 0.75;
 
 
@@ -261,13 +259,16 @@ static void test_DrawLine(int x,int y)
 static void test_DrawTriangle(int x,int y)
 {
 	static int state = 0;
-	static Vertex buffer[3];
+	static Vertex buffer[4];
 	static u08 color[3][3];
-
+	static TriangleList *pos = NULL;
 	for(int i = 0;i < 3;i++)
 	{
 		g_color[i] = color[state][i] = rand() % 255;
+		
 	}
+
+	if(!pos) pos = scene.original_head;
 
 	if(state == 0)
 	{
@@ -279,17 +280,54 @@ static void test_DrawTriangle(int x,int y)
 	{
 		buffer[1].set(x,g_h - y,0);
 		DrawLine(x,g_h - y,x,g_h - y + 1);
-		state = 2;
+		state = 0;
+		float MinX = min(buffer[0].x,buffer[1].x);
+		float MinY = min(buffer[0].y,buffer[1].y);
+		float MaxX = max(buffer[0].x,buffer[1].x);
+		float MaxY = max(buffer[0].y,buffer[1].y);
+
+		buffer[0].set(MinX,MinY,0);
+		buffer[1].set(MaxX,MinY,0);
+		buffer[2].set(MinX,MaxY,0);
+		buffer[3].set(MaxX,MaxY,0);
+
+		Triangle t = *pos->t;
+		t.setPosition(buffer + 0,buffer + 1,buffer + 3);
+		//for(int i = 0;i < 3;i++)
+		//	t.setColor(i,color[i][0],color[i][1],color[i][2]);
+		t.renderSoft_texture();
+
+		if(pos->next) pos = pos->next;
+		else pos = scene.original_head;
+		t = *pos->t;
+		t.setPosition(buffer + 3,buffer + 2,buffer + 0);
+		//for(int i = 0;i < 3;i++)
+		//	t.setColor(i,color[i][0],color[i][1],color[i][2]);
+		t.renderSoft_texture();
+		if(pos->next) pos = pos->next;
+		else pos = scene.original_head;
+
+
 	}
 	else if(state == 2)
 	{
 		buffer[2].set(x,g_h - y,0);
 		DrawLine(x,g_h - y,x,g_h - y + 1);
-		Triangle t(&buffer[0],&buffer[1],&buffer[2]);
-		for(int i = 0;i < 3;i++)
-			t.setColor(i,color[i][0],color[i][1],color[i][2]);
-		t.renderSoft_raster();
+		
+		state = 3;
+		/*buffer[0] = buffer[1];
+		for(int i = 0;i < 3;i++) color[0][i] = color[1][i];
+		buffer[1] = buffer[2];
+		for(int i = 0;i < 3;i++) color[1][i] = color[2][i];*/
+	}
+	else if(state == 3)
+	{
+		buffer[3].set(x,g_h - y,0);
+		DrawLine(x,g_h - y,x,g_h - y + 1);
+
+		
 		state = 0;
+
 	}
 
 }

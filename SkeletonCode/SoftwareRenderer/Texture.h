@@ -25,7 +25,7 @@
 /* implements the texture mapping class so that the triangles
    can be textured in our software renderer */
 class Texture {
-	private:
+	public:
 		int width, height;	/* width and height for the texture */
 		u08 *data;			/* contains the color data for the texture */
 
@@ -40,7 +40,7 @@ class Texture {
 			color[2] = (float) *(ptr + 2);
 		}
 
-	public:
+	
 		/* constructor takes the name of the file to use as a texture */
 		Texture(char *name);
 

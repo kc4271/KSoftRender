@@ -31,6 +31,8 @@ class Triangle {
 			return (v[2].y - v[0].y) * x + (v[0].x - v[2].x) * y + v[2].x * v[0].y - v[0].x * v[2].y;
 		}
 
+		void SamplerBilinearity(float x,float y,u08 *c);
+
 	public:
 		/* constructors */
 		Triangle() {
@@ -76,9 +78,9 @@ class Triangle {
 				exit(-1);
 			}
 
-			c[v][0] = ((float)r/(float)255);
-			c[v][1] = ((float)g/(float)255);	
-			c[v][2] = ((float)b/(float)255);
+			c[v][0] = (float)r;
+			c[v][1] = (float)g;	
+			c[v][2] = (float)b;
 	
 			return;
 		};
@@ -89,6 +91,13 @@ class Triangle {
 
 			return;
 		};
+
+		void setPosition(Vertex *v0, Vertex *v1, Vertex *v2)
+		{
+			v[0] = (*v0);
+			v[1] = (*v1);
+			v[2] = (*v2);
+		}
 
 		void setTexture(Texture *t) {
 			tex = t;
@@ -108,7 +117,9 @@ class Triangle {
 			return;
 		};
 
-		void renderSoft_raster();
+		void renderSoft_color();
+		void renderSoft_texture();
+		
 };
 
 #endif		/* TRIANGLE_H */
