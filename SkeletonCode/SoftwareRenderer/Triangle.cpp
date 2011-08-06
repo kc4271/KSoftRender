@@ -114,8 +114,8 @@ void Triangle::renderSoft_texture()
 					&& (gamma > 0 || fc * neg_fc > 0))
 				{
 					u08 color[3];
-					texX = alpha * coords[0][0] + beta * coords[1][0] + gamma * coords[2][0];
-					texY = alpha * coords[0][1] + beta * coords[1][1] + gamma * coords[2][1];
+					texX = min(alpha * coords[0][0] + beta * coords[1][0] + gamma * coords[2][0],1.0);
+					texY = min(alpha * coords[0][1] + beta * coords[1][1] + gamma * coords[2][1],1.0);
 					SamplerBilinearity(texX,texY,color);
 					g_fb.setColor(int(x),int(y),color[0],color[1],color[2]);
 				}
@@ -128,13 +128,25 @@ void Triangle::SamplerBilinearity(float x,float y,u08 *c)
 {
 	x *= tex->width;
 	y *= tex->height;
+	
+	x -= min(1.0,x);
+	y -= min(1.0,y);
 
+	//if((x >= tex->width - 1) || (y >= tex->height - 1))
+	//{
+	//	c[0] = 255;
+	//	c[1] = c[2] = 0;
+	//	return;
+	//}
 	float four_color[4][3];
+
+
 	tex->getFloatColor(int(x),int(y),&four_color[0][0]);
 	tex->getFloatColor(min(int(x) + 1,tex->width - 1),int(y),&four_color[1][0]);
 	tex->getFloatColor(int(x),min(int(y) + 1,tex->height  - 1),&four_color[2][0]); 
 	tex->getFloatColor(min(int(x) + 1,tex->width - 1),
 		min(int(y) + 1,tex->height  - 1),&four_color[3][0]); 
+
 
 	x -= floor(x);
 	y -= floor(y);
@@ -147,4 +159,3 @@ void Triangle::SamplerBilinearity(float x,float y,u08 *c)
 	c[2] = u08(four_color[0][2] * (1 - x) * (1 - y) + four_color[1][2] * x * (1 - y) 
 		+ four_color[2][2] * (1 - x) * y + four_color[3][2] * x * y);
 }
-
