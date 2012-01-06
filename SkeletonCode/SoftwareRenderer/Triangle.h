@@ -108,6 +108,9 @@ class Triangle {
 		void renderOpenGL(void);
 
 
+		void renderSoft_color();
+		void renderSoft_texture();
+
 		/* for debugging */
 		void print(void) {
 			fprintf(stderr,"Triangle:\n");
@@ -117,8 +120,7 @@ class Triangle {
 			return;
 		};
 
-		void renderSoft_color();
-		void renderSoft_texture();
+		
 		
 };
 

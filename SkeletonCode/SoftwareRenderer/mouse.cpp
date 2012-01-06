@@ -256,6 +256,20 @@ static void test_DrawLine(int x,int y)
 	lastY = g_h - y;
 }
 
+static void test_DrawBezier(int x,int y)
+{
+	static Point2D points[50];
+	static int count = 0;
+	points[count].x = x;
+	points[count].y = g_h - y;
+	count++;
+	if(count == 3)
+	{
+		DrawBezier(points,count,Color(255,0,0),Color(0,255,0));
+		count = 0;
+	}
+}
+
 static void test_DrawTriangle(int x,int y)
 {
 	static int state = 0;
@@ -264,9 +278,10 @@ static void test_DrawTriangle(int x,int y)
 	static TriangleList *pos = NULL;
 	for(int i = 0;i < 3;i++)
 	{
-		g_color[i] = color[state][i] = rand() % 255;
-		
+		color[state][i] = rand() % 255;
 	}
+
+	g_color.set_rand_color();
 
 	if(!pos) pos = scene.original_head;
 
@@ -338,7 +353,8 @@ void mouseInput(int button, int state, int x, int y) {
 			left_button = state;
 			if (state == GLUT_DOWN) {
 				beginDrag(x, y);
-				test_DrawTriangle(x,y);
+				test_DrawBezier(x,y);
+				//test_DrawTriangle(x,y);
 				//glutPostRedisplay();
 			}
 			else {

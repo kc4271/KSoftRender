@@ -61,6 +61,7 @@
   <ItemGroup>
     <ClInclude Include="SoftwareRenderer\FrameBuffer.h" />
     <ClInclude Include="SoftwareRenderer\globals.h" />
+    <ClInclude Include="SoftwareRenderer\MathLib.h" />
     <ClInclude Include="SoftwareRenderer\mouse.h" />
     <ClInclude Include="SoftwareRenderer\OpenGL.h" />
     <ClInclude Include="SoftwareRenderer\Parser.h" />

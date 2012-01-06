@@ -120,7 +120,7 @@ void loadTextures(void) {
 	while((count < num_tex) && fgets(line_buffer, MAX_LINE_SIZE, fp)) {	
 		/* only do something if it's not a comment and the line is not blank */
 		if (!lineCanBeIgnored(line_buffer)) {
-			fprintf(stderr,"%s\n", line_buffer);
+			fprintf(stderr,"%s", line_buffer);
 			parseTexture(count, line_buffer);
 			count++;
 		}

@@ -1,7 +1,48 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstdlib>
+#include "globals.h"
+
+struct Point2D
+{
+	double x,y;
+
+	Point2D(int _x = 0,int _y = 0):x(_x),y(_y) {}
+};
+
+struct Color
+{
+	u08 r,g,b,a;
+
+	Color(u08 _r = 255,u08 _g = 0,u08 _b = 0,u08 _a = 0):r(_r),g(_g),b(_b),a(_a) {}
+	void set(u08 _r = 255,u08 _g = 0,u08 _b = 0,u08 _a = 0)
+	{
+		r = _r;
+		g = _g;
+		b = _b;
+		a = _a;
+	}
+
+	Color operator +(const Color &t) const
+	{
+		return Color(r + t.r,g + t.g,b + t.b,a + t.a);
+	}
+
+	Color operator *(float factor) const
+	{
+		return Color(r * factor,g * factor,b * factor,a * factor);
+	}
+
+	void set_rand_color()
+	{
+		r = rand() % 255;
+		g = rand() % 255;
+		b = rand() % 255;
+	}
+
+};
 
 /* represents a vertex in homogenous coordinates */
 class Vertex {
@@ -30,4 +71,4 @@ class Vertex {
 		}
 };
 
-#endif		/* VERTEX_H */s
+#endif		/* VERTEX_H */

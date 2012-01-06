@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <atlimage.h>
 #include "globals.h"
-
+#include "Vertex.h"
 /* implements the framebuffer. you might want to modify it to add depth buffering and other capabilities */
 class FrameBuffer {
 	private:
@@ -38,6 +38,13 @@ class FrameBuffer {
 			color_buffer[(y * width + x)*3] = r;
 			color_buffer[(y * width + x)*3 + 1] = g;
 			color_buffer[(y * width + x)*3 + 2] = b;
+		}
+
+		inline void setColor(int x,int y,Color c)
+		{
+			color_buffer[(y * width + x)*3] = c.r;
+			color_buffer[(y * width + x)*3 + 1] = c.g;
+			color_buffer[(y * width + x)*3 + 2] = c.b;
 		}
 
 		inline void clearBuffer()

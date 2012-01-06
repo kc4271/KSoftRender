@@ -17,8 +17,6 @@
 #include "gl_ext.h"
 
 #endif
-
-
 #include <math.h>
 
 
