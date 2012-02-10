@@ -1,8 +1,8 @@
 #pragma once
 
-inline int GetCnj(int n,int j)
+inline long long GetCnj(int n,int j)
 {
-	int res = 1;
+	long long res = 1;
 	for(int i = 0;i < n - j;i++)
 		res = res * (j + i + 1) / (i + 1);
 	return res;

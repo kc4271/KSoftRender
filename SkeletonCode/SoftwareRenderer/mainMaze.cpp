@@ -7,6 +7,7 @@ int main(int argc, char **argv) {
 	if (argc != 2) {
 		fprintf(stderr,"Usage: MazeViewer <file>\n");
 		fprintf(stderr,"argc: %d\n", argc);
+		getchar();
 		return -1;
 	}
 

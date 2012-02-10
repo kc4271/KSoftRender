@@ -47,6 +47,8 @@ void DrawLine(int x0,int y0,int x1,int y1)
 	}
 }
 
+
+//size must less than 60 because of the length of type long long in function GetCnj(n,j)
 void DrawBezier(Point2D *point_list,int size,Color s,Color e)
 {
 	int point_sum = 0;
@@ -58,14 +60,18 @@ void DrawBezier(Point2D *point_list,int size,Color s,Color e)
 	point_sum *= 1;
 
 	Point2D point_draw;
+//  printf("%d\n",size);
+//  for(int i = 0;i < size - 1;i++)
+//  	printf("%lld ",GetCnj(size - 1,i));
+//  puts("\n");
 	for(double t = 0.0;t < 1.0;t += 1.0 / point_sum)
 	{
 		point_draw.x = point_draw.y = 0;
-		int dim = 2;
+		int dim = size - 1;
 		for(int i = 0;i <= dim;i++)
 		{
-			point_draw.x += GetCnj(dim,i) * pow(t,i) * pow(1 - t,dim - i) * point_list[i].x;
-			point_draw.y += GetCnj(dim,i) * pow(t,i) * pow(1 - t,dim - i) * point_list[i].y;
+			point_draw.x += abs(GetCnj(dim,i) * pow(t,i) * pow(1 - t,dim - i) * point_list[i].x);
+			point_draw.y += abs(GetCnj(dim,i) * pow(t,i) * pow(1 - t,dim - i) * point_list[i].y);
 		}
 		g_fb.setColor(int(point_draw.x),int(point_draw.y),s * (1 - t) + e * t);
 	}

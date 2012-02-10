@@ -258,15 +258,15 @@ static void test_DrawLine(int x,int y)
 
 static void test_DrawBezier(int x,int y)
 {
-	static Point2D points[50];
+	static Point2D points[150];
 	static int count = 0;
 	points[count].x = x;
 	points[count].y = g_h - y;
 	count++;
-	if(count == 3)
+	if(count > 3)
 	{
 		DrawBezier(points,count,Color(255,0,0),Color(0,255,0));
-		count = 0;
+		//count = 0;
 	}
 }
 
