@@ -1,7 +1,4 @@
-#ifndef SCENE_H
-#define SCENE_H
-
-
+#pragma once
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
@@ -164,4 +161,3 @@ void sceneCleanup(void);
 void setPerspectiveProjection(float eye_fov, float aspect_ratio, float near, float far);
 void setModelviewMatrix(float *eye_pos, float eye_theta, float eye_phi);
 
-#endif		/* SCENE_H */

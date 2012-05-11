@@ -1,24 +1,12 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 #include <windows.h>
 #include <atlimage.h>
 
-#include "globals.h"
+#include <cstdio>
+#include <cmath>
 
-#if OPENGL_TEST
-/* this includes opengl calls in the code */
-
-#include <stdio.h>
-
-#include "gl.h"
-#include "glu.h"
-#include "glut.h"
-#include "gl_ext.h"
-
-#endif
-#include <math.h>
-
+#include <gl/glut.h>
 
 /* implements the texture mapping class so that the triangles
    can be textured in our software renderer */
@@ -65,4 +53,3 @@ class Texture {
 
 };
 
-#endif		/* TEXTURE_H */

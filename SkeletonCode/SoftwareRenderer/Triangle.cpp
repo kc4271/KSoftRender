@@ -9,6 +9,7 @@ void Triangle :: renderOpenGL(void) {
 	}
 
 	/* now draw the triangle */
+	//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	glBegin(GL_TRIANGLES);
 		glTexCoord2fv(coords[0]);
 		glColor3fv(c[0]);
@@ -132,12 +133,6 @@ void Triangle::SamplerBilinearity(float x,float y,u08 *c)
 	x -= min(1.0,x);
 	y -= min(1.0,y);
 
-	//if((x >= tex->width - 1) || (y >= tex->height - 1))
-	//{
-	//	c[0] = 255;
-	//	c[1] = c[2] = 0;
-	//	return;
-	//}
 	float four_color[4][3];
 
 

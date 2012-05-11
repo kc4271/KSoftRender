@@ -5,7 +5,6 @@
 #include <math.h>
 
 #include "Vertex.h"
-#include "FrameBuffer.h"
 #include "Texture.h"
 
 /* implements the triangle class */

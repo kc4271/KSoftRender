@@ -1,6 +1,6 @@
 #include <atlimage.h>
 
-#include "globals.h"
+#include "vertex.h"
 
 #include "Texture.h"
 

@@ -3,8 +3,9 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include "globals.h"
+//#include "globals.h"
 
+typedef unsigned char u08;
 struct Point2D
 {
 	double x,y;

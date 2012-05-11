@@ -1,5 +1,4 @@
-#ifndef MOUSE_H
-#define MOUSE_H
+#pragma once
 
 void reshape(int w, int h);
 void computeModelViewMatrix(void);
@@ -14,5 +13,3 @@ void moveForward(void);
 void moveLeft(void);
 void moveRight(void);
 void moveBack(void);
-
-#endif		/* MOUSE_H */

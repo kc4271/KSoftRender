@@ -2,14 +2,12 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "gl.h"
-#include "glu.h"
-#include "glut.h"
-#include "globals.h"
+#include <gl/glut.h>
 
+#include "globals.h"
 #include "Scene.h"
 #include "Rasterization.h"
-
+#include "MathLib.h"
 
 #include "Values.h"
 /* store the eye position */
@@ -263,7 +261,7 @@ static void test_DrawBezier(int x,int y)
 	points[count].x = x;
 	points[count].y = g_h - y;
 	count++;
-	if(count > 3)
+	if(count >= 3)
 	{
 		DrawBezier(points,count,Color(255,0,0),Color(0,255,0));
 		//count = 0;
@@ -415,9 +413,10 @@ void moveLeft(void) {
 	eye_pos[1] += -right_vector[1] * speed;
 }
 
-void moveRight(void) {
+void moveRight(void) 
+{
 	/* update the x and y components of the eye position 
-	   moving in the direction of the right vector */
+				   moving in the direction of the right vector */
 	eye_pos[0] += right_vector[0] * speed;
 	eye_pos[1] += right_vector[1] * speed;
 }

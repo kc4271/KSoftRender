@@ -46,7 +46,7 @@ void FrameBuffer :: dumpColorBufferToFile(char *name) {
 
 
 #include <windows.h>
-#include "gl.h"
+#include <GL/glut.h>
 
 /* this function dumps the data array to the screen using glDrawPixels() */
 void FrameBuffer :: dumpToScreen(void) {

@@ -1,7 +1,4 @@
-#ifndef PARSER_H
-#define PARSER_H
-
-
+#pragma once
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
@@ -78,5 +75,3 @@ static inline void copyString(char *dst, char *start, char *end) {
 	
 	return;
 }
-
-#endif		/* PARSER_H */

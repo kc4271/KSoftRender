@@ -46,6 +46,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SoftwareRenderer\FrameBuffer.cpp" />
     <ClCompile Include="SoftwareRenderer\mainMaze.cpp" />
@@ -72,10 +77,6 @@
     <ClInclude Include="SoftwareRenderer\Triangle.h" />
     <ClInclude Include="SoftwareRenderer\Values.h" />
     <ClInclude Include="SoftwareRenderer\Vertex.h" />
-    <ClInclude Include="SoftwareRenderer\gl.h" />
-    <ClInclude Include="SoftwareRenderer\gl_ext.h" />
-    <ClInclude Include="SoftwareRenderer\glu.h" />
-    <ClInclude Include="SoftwareRenderer\glut.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="maze1.txt" />

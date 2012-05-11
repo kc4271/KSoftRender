@@ -47,32 +47,48 @@ void DrawLine(int x0,int y0,int x1,int y1)
 	}
 }
 
-
-//size must less than 60 because of the length of type long long in function GetCnj(n,j)
 void DrawBezier(Point2D *point_list,int size,Color s,Color e)
 {
-	int point_sum = 0;
-	for(int i = 1;i < size;i++)
-	{
-		point_sum += (int)sqrt(double(square(point_list[i].x - point_list[i-1].x) +  
-			square(point_list[i].y - point_list[i - 1].y)));
-	}
-	point_sum *= 1;
+	int point_sum = max(size,1000);
 
 	Point2D point_draw;
-//  printf("%d\n",size);
-//  for(int i = 0;i < size - 1;i++)
-//  	printf("%lld ",GetCnj(size - 1,i));
-//  puts("\n");
-	for(double t = 0.0;t < 1.0;t += 1.0 / point_sum)
+	Point2D *segments[2];
+	segments[0] = new Point2D[size * 2];
+	segments[1] = segments[0] + size;
+	
+	Point2D last_point;
+	
+	for(int z = 0;z <= point_sum;z++)
 	{
-		point_draw.x = point_draw.y = 0;
-		int dim = size - 1;
-		for(int i = 0;i <= dim;i++)
+		for(int i = 0;i < size;i++)
+			segments[0][i] = point_list[i];
+
+		double t = double(z) / point_sum;
+		for(int i = 0;i < size - 1;i++)
 		{
-			point_draw.x += abs(GetCnj(dim,i) * pow(t,i) * pow(1 - t,dim - i) * point_list[i].x);
-			point_draw.y += abs(GetCnj(dim,i) * pow(t,i) * pow(1 - t,dim - i) * point_list[i].y);
+			Point2D *last = segments[i % 2];
+			Point2D *cur = segments[(i + 1) % 2];
+			for(int j = 0;j < size - i - 1;j++)
+			{
+				cur[j].x = (1 - t) * last[j].x + t * last[j + 1].x;
+				cur[j].y = (1 - t) * last[j].y + t * last[j + 1].y;
+			}
 		}
+		point_draw.x = segments[(size + 1) % 2][0].x;
+		point_draw.y = segments[(size + 1) % 2][0].y;
+
 		g_fb.setColor(int(point_draw.x),int(point_draw.y),s * (1 - t) + e * t);
+		if(z)
+		{
+			if(abs(last_point.x - point_draw.x) > 1 || abs(last_point.y - point_draw.y) > 1)
+			{
+				g_color = s * (1 - t) + e * t;
+				DrawLine(last_point,point_draw);
+			}
+		}
+
+		last_point = point_draw;
 	}
+	
+	delete [](segments[0]);
 }
